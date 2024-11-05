@@ -5,9 +5,18 @@
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    user-select: none;
+    scroll-behavior: smooth;
 }
 
 /* start head */
+.fa-bars{
+    font-size: 3em;
+}
+
+header .fa-bars{
+    display: none;
+}
 
 header{
     width: 100%;
@@ -26,6 +35,7 @@ body{
     background-image: url(2.JPG);
     background-size: cover;
     background-attachment: fixed;
+    
     
 }
 
@@ -59,11 +69,11 @@ nav a:hover{
 .lfnav{
     background-color: #1f2327;
     width: 80px;
-    height: 100vh;
+    height: 95vh;
     padding: 40px 10px 0px 10px;
     margin-top:  90px;
     float: left;
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 20px 0px;
     overflow: hidden;
 transition: 0.5s ease;
 }
@@ -102,6 +112,7 @@ ul li a i{
     margin: 250px 0px 0px 100px;
     float: left;
     color: white;
+
 }
 .second-main h2{
     margin: 10px;
@@ -157,3 +168,403 @@ ul li a i{
 /*  end right main */
 
 
+.title{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 3.2em;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 30px;
+    border: solid 5px black;
+    background: #474545a2;
+}
+
+.thirs-sec{
+    width: 100%;
+
+
+}
+
+.cards{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10fr 10fr;
+}
+
+
+.Content{
+    background: url(grapic.jpeg);
+    background-size: cover;
+    padding: 6em 6em 5em 6em;
+    margin: 10px;
+text-align: center;
+}
+.Content1{
+    background: url(photo.jpg);
+    background-size: cover;
+    padding: 6em 6em 5em 6em;
+    margin: 10px;
+text-align: center;
+}
+.Content2{
+    background: url(content.jpg);
+    background-size: cover;
+    padding: 6em 6em 5em 6em;
+    margin: 10px;
+text-align: center;
+}
+.Content3{
+    background: url(voice.png);
+    background-size: cover;
+    padding: 6em 6em 5em 6em;
+    margin: 10px;
+text-align: center;
+}
+.Content4{
+    background: url(video.png);
+    background-size: cover;
+    padding: 6em 6em 5em 6em;
+    margin: 10px;
+text-align: center;
+}
+.Content5{
+    background: url(computer.jpg);
+    background-size: cover;
+    padding: 6em 6em 5em 6em;
+    margin: 10px;
+text-align: center;
+}
+.Content6{
+    background: url(front.jpg);
+    background-size: cover;
+    padding: 6em 6em 5em 6em;
+    margin: 10px;
+text-align: center;
+}
+
+.Content8{
+    background: url(3.jpg);
+    background-size: cover;
+    padding: 6em 6em 5em 6em;
+    margin: 10px;
+text-align: center;
+}
+.Content9{
+    background: url(4.jpg);
+    background-size: cover;
+    padding: 6em 6em 5em 6em;
+    margin: 10px;
+text-align: center;
+}
+.Content10{
+    background: url(5.jpeg);
+    background-size: cover;
+    padding: 6em 6em 5em 6em;
+    margin: 10px;
+text-align: center;
+}
+
+.Content h4{
+    background: #47414186;
+    font-size: 40px;
+    padding: 10px;
+    color: #fff;
+}
+
+.Content1 h4{
+    background: #47414186;
+    font-size: 40px;
+    padding: 10px;
+    color: #fff;
+}
+
+.Content2 h4{
+    background: #47414186;
+    font-size: 40px;
+    padding: 10px;
+    color: #fff;
+}
+.Content3 h4{
+    background: #47414186;
+    font-size: 40px;
+    padding: 10px;
+    color: #fff;
+}
+.Content4 h4{
+    background: #47414186;
+    font-size: 40px;
+    padding: 10px;
+    color: #fff;
+}
+.Content5 h4{
+    background: #47414186;
+    font-size: 40px;
+    padding: 10px;
+    color: #fff;
+}
+.Content6 h4{
+    background: #47414186;
+    font-size: 40px;
+    padding: 10px;
+    color: #fff;
+}
+
+.Content8 h4{
+    background: #47414186;
+    font-size: 40px;
+    padding: 10px;
+    color: #fff;
+}
+.Content9 h4{
+    background: #47414186;
+    font-size: 40px;
+    padding: 10px;
+    color: #fff;
+}
+.Content10 h4{
+    background: #47414186;
+    font-size: 40px;
+    padding: 10px;
+    color: #fff;
+}
+
+
+.Content a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.Content1 a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.Content2 a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.Content3 a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.Content4 a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.Content5 a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.Content6 a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.Content7 a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.Content8 a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.Content9 a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.Content10 a:hover{
+    color: #3907af;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+
+
+
+
+
+.Content a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background-color: #14171a;
+    color: #fff;
+    border: 15px;
+    padding: 20px;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+
+}
+.Content1 a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background-color: #14171a;
+    color: #fff;
+    border: 15px;
+    padding: 20px;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+
+}
+.Content2 a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background-color: #14171a;
+    color: #fff;
+    border: 15px;
+    padding: 20px;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+
+}
+.Content3 a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background-color: #14171a;
+    color: #fff;
+    border: 15px;
+    padding: 20px;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+
+}
+.Content4 a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background-color: #14171a;
+    color: #fff;
+    border: 15px;
+    padding: 20px;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+
+}
+.Content5 a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background-color: #14171a;
+    color: #fff;
+    border: 15px;
+    padding: 20px;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+
+}
+.Content6 a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background-color: #14171a;
+    color: #fff;
+    border: 15px;
+    padding: 20px;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+
+}
+
+.Content8 a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background-color: #14171a;
+    color: #fff;
+    border: 15px;
+    padding: 20px;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+
+}
+.Content9 a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background-color: #14171a;
+    color: #fff;
+    border: 15px;
+    padding: 20px;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+
+}
+.Content10 a{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background-color: #14171a;
+    color: #fff;
+    border: 15px;
+    padding: 20px;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+
+}
+
+
+
+@media (max-width:1274px) {
+    
+    .lfnav{
+    display: none;
+    background-color: #31383f;
+    width: 250px;
+    height: 35vh;
+
+
+    
+}
+}
+
+@media (max-width:1274px) {
+    
+    header .fa-bars{
+        display: block;
+    }
+
+}
+    
+header .fa-bars:hover{
+    display: block;
+    cursor: pointer;
+
+}
+
+
+
+@media (max-width:1274px) {
+    
+    body{
+        background-image: url(2.JPG);
+        background-size: cover;
+        background-attachment: fixed;
+        background-size: contain;
+        
+        
+    }
+}
+
+.lfnav.active{
+    display: block;
+    background-color: #31383f;
+    width: 250px;
+    height: 35vh;
+
+}
