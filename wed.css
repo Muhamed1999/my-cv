@@ -642,11 +642,11 @@ header .fa-bars:hover{
 
     @keyframes control-width{
         from{
-            width: 0rem;
+            width: 0px;
            
         }
         to{
-            width: 5rem;
+            width: 10px;
           
         }
     }
@@ -677,7 +677,7 @@ header .fa-bars:hover{
 
 
 }
-@media (max-width:1285px) {
+@media (max-width:1024px) {
     .pra{
         display: block;
       
@@ -690,7 +690,7 @@ header .fa-bars:hover{
            
         }
         to{
-            width: 60rem;
+            width: 50rem;
           
         }
     }
