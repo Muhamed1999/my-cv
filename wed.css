@@ -37,7 +37,6 @@ body{
     background-size: cover;
     background-attachment: fixed;
     
-    
 }
 
 
@@ -115,6 +114,27 @@ ul li a i{
     color: white;
 
 }
+
+.pra{
+    overflow: hidden;
+   display: flex;
+    width: fit-content;
+    height: 9rem;
+    /* white-space: nowrap; */
+    animation:control-width 3s steps(300) 2s both;
+    background-color: #27262669;
+}
+@keyframes control-width{
+    from{
+        width: 0rem;
+       
+    }
+    to{
+        width: 90rem;
+      
+    }
+}
+
 .second-main h2{
     margin: 10px;
     
@@ -124,6 +144,7 @@ ul li a i{
     
 }
 .view{
+    width: fit-content;
     background-color: #1f2327;
     padding: 20px;
     border-radius: 15px;
@@ -136,6 +157,7 @@ ul li a i{
     text-decoration: none;
 
 }
+ 
 .view:hover{
     background-color: #14171a;
     transform: scale(1.1);
@@ -528,10 +550,8 @@ text-align: center;
     background-color: #31383f;
     width: 250px;
     height: 35vh;
-
-
-    
 }
+
 }
 
 @media (max-width:1274px) {
@@ -567,5 +587,27 @@ header .fa-bars:hover{
     background-color: #31383f;
     width: 250px;
     height: 35vh;
+
+}
+
+@media (max-width:1274px) {
+    .pra{
+        display: block;
+        width: fit-content;
+    }
+
+
+    @keyframes control-width{
+        from{
+            width: 0rem;
+           
+        }
+        to{
+            width: 60rem;
+          
+        }
+    }
+
+
 
 }
