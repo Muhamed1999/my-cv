@@ -52,6 +52,24 @@ body{
 }
 
 
+    #rgb{
+    }
+        @keyframes colorChange {
+            0% { color: rgb(255, 149, 0); }   /* أحمر */
+            25% { color: rgb(255, 77, 0); }  /* أخضر */
+            50% { color: rgb(255, 140, 0); }  /* أزرق */
+            75% { color: rgb(255, 157, 0); } /* أصفر */
+            100% { color: rgb(255, 94, 0); }  /* العودة للأحمر */
+        }
+        
+        #rgb {
+            font-size: 30px;  /* حجم الأيقونة */
+            animation: colorChange 3s infinite linear;
+        }
+        
+    
+
+
 nav a{
     text-decoration: none;
     padding: 0px 10px;
