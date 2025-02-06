@@ -633,3 +633,68 @@ header .fa-bars:hover{
 
 
 }
+@media (max-width:410px) {
+    .pra{
+        display: block;
+      
+    }
+
+
+    @keyframes control-width{
+        from{
+            width: 0rem;
+           
+        }
+        to{
+            width: 5rem;
+          
+        }
+    }
+
+
+
+}
+
+
+@media (max-width:1275px) {
+    .pra{
+        display: block;
+      
+    }
+
+
+    @keyframes control-width{
+        from{
+            width: 0rem;
+           
+        }
+        to{
+            width: 50rem;
+          
+        }
+    }
+
+
+
+}
+@media (max-width:1285px) {
+    .pra{
+        display: block;
+      
+    }
+
+
+    @keyframes control-width{
+        from{
+            width: 0rem;
+           
+        }
+        to{
+            width: 60rem;
+          
+        }
+    }
+
+
+
+}
