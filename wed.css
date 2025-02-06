@@ -52,11 +52,10 @@ body{
 }
 
 
-    #rgb{
-    }
+   
         @keyframes colorChange {
             0% { color: rgb(255, 149, 0); }   /* أحمر */
-            25% { color: rgb(255, 77, 0); }  /* أخضر */
+            25% { color: rgb(255, 111, 0); }  /* أخضر */
             50% { color: rgb(255, 140, 0); }  /* أزرق */
             75% { color: rgb(255, 157, 0); } /* أصفر */
             100% { color: rgb(255, 94, 0); }  /* العودة للأحمر */
@@ -64,11 +63,23 @@ body{
         
         #rgb {
             font-size: 30px;  /* حجم الأيقونة */
-            animation: colorChange 3s infinite linear;
+            animation: colorChange 2s infinite linear;
         }
         
     
-
+        @keyframes glowEffect {
+            0% { text-shadow: 0 0 5px rgba(255, 89, 0, 0.522), 0 0 10px rgba(255, 0, 0, 0.793), 0 0 15px rgba(255, 0, 0, 0.702); color: red; }
+            25% { text-shadow: 0 0 5px green, 0 0 10px green, 0 0 15px green; color: green; }
+            50% { text-shadow: 0 0 5px rgb(255, 106, 0), 0 0 10px rgb(255, 145, 0), 0 0 15px rgb(255, 145, 0); color: rgb(255, 106, 0); }
+            75% { text-shadow: 0 0 5px yellow, 0 0 10px yellow, 0 0 15px yellow; color: yellow; }
+            100% { text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red; color: red; }
+        }
+        
+        #rgb {
+            font-size: 40px; /* تكبير الأيقونة */
+            animation: glowEffect 3s infinite linear;
+        }
+        
 
 nav a{
     text-decoration: none;
