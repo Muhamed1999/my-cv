@@ -611,3 +611,25 @@ header .fa-bars:hover{
 
 
 }
+
+@media (max-width:1094px) {
+    .pra{
+        display: block;
+      
+    }
+
+
+    @keyframes control-width{
+        from{
+            width: 0rem;
+           
+        }
+        to{
+            width: 50rem;
+          
+        }
+    }
+
+
+
+}
