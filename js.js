@@ -1,3 +1,58 @@
+const driveMediaUrl = (path, type = 'video') => {
+    if (!path) return '';
+
+    let normalizedPath;
+    try {
+        normalizedPath = decodeURIComponent(path).replace(/^(?:\.\/|\/)+/, '');
+    } catch {
+        return '';
+    }
+
+    const media = window.driveMediaFiles.find((item) => item.path === normalizedPath);
+    if (!media) return '';
+
+    return type === 'image'
+        ? `https://drive.google.com/thumbnail?id=${media.id}&sz=w1200`
+        : `https://drive.google.com/uc?export=download&id=${media.id}`;
+};
+
+const useDrivePreviewOnError = (video, sourceUrl) => {
+    video.addEventListener('error', () => {
+        const fileId = new URL(sourceUrl).searchParams.get('id');
+        if (!fileId || !video.isConnected) return;
+
+        const frame = document.createElement('iframe');
+        frame.src = `https://drive.google.com/file/d/${fileId}/preview`;
+        frame.title = video.getAttribute('aria-label') || 'Google Drive video';
+        frame.allow = 'autoplay';
+        frame.allowFullscreen = true;
+        frame.loading = 'lazy';
+        video.replaceWith(frame);
+    }, { once: true });
+};
+
+document.querySelectorAll('img[src]').forEach((image) => {
+    const driveUrl = driveMediaUrl(image.getAttribute('src'), 'image');
+    if (driveUrl) image.src = driveUrl;
+});
+
+document.querySelectorAll('video[src]').forEach((video) => {
+    const driveUrl = driveMediaUrl(video.getAttribute('src'));
+    const posterPath = video.getAttribute('data-drive-poster') || video.getAttribute('poster');
+    const posterUrl = driveMediaUrl(posterPath, 'image');
+
+    if (driveUrl) {
+        useDrivePreviewOnError(video, driveUrl);
+        video.src = driveUrl;
+    }
+    else video.removeAttribute('src');
+
+    if (posterUrl) video.poster = posterUrl;
+    else video.removeAttribute('poster');
+
+    video.preload = 'none';
+});
+
 const menuToggle = document.querySelector('.menu-toggle');
 const mainNav = document.querySelector('.main-nav');
 
@@ -116,7 +171,7 @@ const collaborationCompanies = [
 
 const collaborationContainer = document.getElementById('collaborationCompanies');
 const collaborationMediaRoot = 'video work/شركات تم التعاون معها';
-const mediaUrl = (path) => `${collaborationMediaRoot}/${path.split('/').map(encodeURIComponent).join('/')}`;
+const mediaUrl = (path, type) => driveMediaUrl(`${collaborationMediaRoot}/${path}`, type);
 
 const photoDesignFallbackGroups = [
     {
@@ -193,8 +248,11 @@ const renderPhotoDesignGroups = (groups) => {
         grid.className = 'photo-design-grid';
 
         group.images.forEach((imageData) => {
+            const imageUrl = driveMediaUrl(imageData.src, 'image');
+            if (!imageUrl) return;
+
             const image = document.createElement('img');
-            image.src = imageData.src;
+            image.src = imageUrl;
             image.alt = `${group.name} example`;
             image.loading = 'lazy';
             image.decoding = 'async';
@@ -214,23 +272,7 @@ const photoDesignLocalGroups = photoDesignFallbackGroups.map((group) => ({
     }))
 }));
 
-if (photoDesignGallery) {
-    if (window.location.protocol === 'file:') {
-        renderPhotoDesignGroups(photoDesignLocalGroups);
-    } else {
-        fetch('/api/photo-design')
-        .then((response) => {
-            if (!response.ok) throw new Error('Unable to load images');
-            return response.json();
-        })
-        .then(({ groups }) => {
-            renderPhotoDesignGroups(groups);
-        })
-        .catch(() => {
-            renderPhotoDesignGroups(photoDesignLocalGroups);
-        });
-    }
-}
+if (photoDesignGallery) renderPhotoDesignGroups(photoDesignLocalGroups);
 
 const createCollaborationMediaGroup = (label, files, type, company) => {
     if (!files.length) return null;
@@ -247,27 +289,31 @@ const createCollaborationMediaGroup = (label, files, type, company) => {
     grid.setAttribute('aria-label', `${label} - ${company.name}`);
 
     files.forEach((file) => {
+        const sourceUrl = mediaUrl(`${company.folder}/${file}`, type === 'image' ? 'image' : 'video');
+        if (!sourceUrl) return;
+
         const card = document.createElement('article');
         card.className = 'collaboration-media-item';
 
         if (type === 'image') {
             const image = document.createElement('img');
-            image.src = mediaUrl(`${company.folder}/${file}`);
+            image.src = sourceUrl;
             image.alt = `${company.name} design`;
             image.loading = 'lazy';
             image.decoding = 'async';
             card.appendChild(image);
         } else {
             const video = document.createElement('video');
-            video.src = mediaUrl(`${company.folder}/${file}`);
             video.controls = true;
             video.playsInline = true;
             const isAvi = /\.avi$/i.test(file);
-            video.preload = isAvi ? 'none' : 'metadata';
+            video.preload = 'none';
             if (isAvi) {
-                video.poster = mediaUrl(`${company.folder}/Aqua-Solo/gesign/fixed- logo copy.png`);
+                video.poster = mediaUrl(`${company.folder}/Aqua-Solo/gesign/fixed- logo copy.png`, 'image');
             }
             video.setAttribute('aria-label', `${company.name} video`);
+            useDrivePreviewOnError(video, sourceUrl);
+            video.src = sourceUrl;
             card.appendChild(video);
         }
 
@@ -300,6 +346,7 @@ document.querySelectorAll('video').forEach((video) => {
     video.setAttribute('disablepictureinpicture', '');
 });
 const prepareVideoPreview = (video) => {
+    if (video.currentSrc.startsWith('https://drive.google.com/')) return;
     if (video.dataset.previewRequested || video.hasAttribute('poster')) return;
     video.dataset.previewRequested = 'true';
 
@@ -353,6 +400,8 @@ if ('IntersectionObserver' in window) {
     const previewObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
+            entry.target.preload = 'metadata';
+            entry.target.load();
             prepareVideoPreview(entry.target);
             previewObserver.unobserve(entry.target);
         });
