@@ -669,7 +669,8 @@ button, a {
 
 .collaboration-media-item img,
 .collaboration-media-item video,
-.collaboration-media-item .youtube-embed {
+.collaboration-media-item .youtube-embed,
+.collaboration-media-item .drive-embed {
     display: block;
     width: 100%;
     aspect-ratio: 4 / 3;
