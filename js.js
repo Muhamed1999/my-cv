@@ -98,17 +98,6 @@ const collaborationCompanies = [
     {
         name: 'Aqua Solo',
         folder: 'aqwa solo',
-        images: [
-            'Aqua-Solo/gesign/aqwa-solo-logo.png',
-            'Aqua-Solo/gesign/Fixed Pro copy.png',
-            'Aqua-Solo/gesign/FIXED WATER Logo.png',
-            'Aqua-Solo/gesign/fixed- logo copy.png',
-            'Aqua-Solo/gesign/logo aqwa solo.png',
-            'Aqua-Solo/gesign/new fix ai.png',
-            'Aqua-Solo/gesign/Rounded Business Card Mockup 1 copy.jpg',
-            'Aqua-Solo/gesign/s.png',
-            'Aqua-Solo/gesign/VODA Logo.png'
-        ],
         videos: [
             'Aqua-Solo/1.mp4',
             'Aqua-Solo/2.mp4',
@@ -133,11 +122,6 @@ const collaborationCompanies = [
     {
         name: 'Mo Media',
         folder: 'mo media',
-        images: [
-            'ghgfdg].jpg',
-            'goldenvoive degigne moam,ed.png',
-            'سثؤخىي.png'
-        ],
         videos: [
             'edit.mp4',
             'kwitsheko.mp4',
@@ -154,104 +138,6 @@ const collaborationCompanies = [
 const collaborationContainer = document.getElementById('collaborationCompanies');
 const collaborationMediaRoot = 'video work/شركات تم التعاون معها';
 const mediaUrl = (path) => `${collaborationMediaRoot}/${path.split('/').map(encodeURIComponent).join('/')}`;
-
-const photoDesignFallbackGroups = [
-    {
-        name: 'General Photos',
-        files: ['Capture.JPG', 'IMG_20250419_231604.jpg', 'Untitled-1.jpg', 'بعغن.JPG']
-    },
-    {
-        name: 'Medical Photos',
-        files: [
-            'doctor/464180096_122106413480570941_7360119215620716251_n.jpg',
-            'doctor/5.jpg', 'doctor/abd elshafy.jpg', 'doctor/ahmed ghaber.jpg',
-            'doctor/alla hassan.jpg', 'doctor/Amal abdelhafis.jpg', 'doctor/amira.jpg',
-            'doctor/gerges.jpg', 'doctor/maha.jpg', 'doctor/mohamed mokhtar.jpg',
-            'doctor/photo_5983589330179965510_y.jpg', 'doctor/photo_5983589330179965511_y.jpg',
-            'doctor/photo_5983589330179965513_y.jpg', 'doctor/sabah abdllah.jpg'
-        ]
-    },
-    {
-        name: 'Logo Designs',
-        files: [
-            'Logo/1(1).png', 'Logo/1.png', 'Logo/2.png', 'Logo/3.166Z.png', 'Logo/3.png',
-            'Logo/4(1).png', 'Logo/4.png', 'Logo/5.png', 'Logo/6.png', 'Logo/facebook.png',
-            'Logo/Google_AI_Studio_2025-07-111T13_53_36.128Z.jpg',
-            'Logo/Google_AI_Studio_2025-07-11T13_56_21.000Z.png',
-            'Logo/Google_AI_Studio_2025-07-11T13_58_03.816Z.png', 'Logo/last kids.jpg',
-            'Logo/photo_5999174641215717400_y.jpg', 'Logo/photo_5999174641215717401_y.jpg',
-            'Logo/photo_5999174641215717402_y.jpg',
-            'Logo/WhatsApp Image 2025-07-11 at 16.58.51_08ce08c4.jpg'
-        ]
-    },
-    {
-        name: 'Photo Editing',
-        files: [
-            'photoshop/photo_5944863259339374966_y.jpg', 'photoshop/photo_5944863259339374967_y.jpg',
-            'photoshop/photo_5944863259339374968_y.jpg', 'photoshop/photo_5944863259339374969_y.jpg',
-            'photoshop/photo_5944863259339374970_y.jpg', 'photoshop/photo_5944863259339374971_y.jpg',
-            'photoshop/photo_5944863259339374972_y.jpg', 'photoshop/photo_5944863259339374973_y.jpg',
-            'photoshop/photo_5944863259339374974_y.jpg', 'photoshop/photo_5944863259339374975_y.jpg',
-            'photoshop/photo_5985508613625594286_y.jpg', 'photoshop/photo_5985508613625594287_y.jpg',
-            'photoshop/photo_5985508613625594288_y.jpg', 'photoshop/photo_5985508613625594289_y.jpg',
-            'photoshop/photo_5987614625069383142_y.jpg', 'photoshop/عيد ميلادي.jpg'
-        ]
-    },
-    {
-        name: 'Poster Designs',
-        files: [
-            'poster/photo_5944863259339374946_y.jpg', 'poster/photo_5944863259339374947_y.jpg',
-            'poster/photo_5944863259339374948_y.jpg', 'poster/photo_5944863259339374951_y.jpg',
-            'poster/photo_5944863259339374952_y.jpg', 'poster/photo_5944863259339374953_y.jpg',
-            'poster/photo_5944863259339374954_y.jpg', 'poster/photo_5976318496008683289_y.jpg',
-            'poster/photo_5983589330179965507_y.jpg', 'poster/photo_5983589330179965508_y.jpg',
-            'poster/photo_5983589330179965509_y.jpg', 'poster/photo_5983589330179965512_y.jpg',
-            'poster/photo_5983589330179965514_y.jpg', 'poster/photo_5983589330179965516_y.jpg',
-            'poster/photo_5983589330179965588_y.jpg', 'poster/photo_5987760413439279493_y.jpg',
-            'poster/photo_5987760413439279494_y.jpg', 'poster/photo_5987760413439279495_y.jpg',
-            'poster/photo_5987760413439279496_y.jpg',
-            'poster/كرت الامام والخلف في ملف واحد copy.jpg'
-        ]
-    }
-];
-
-const photoDesignGallery = document.getElementById('photoDesignGallery');
-const renderPhotoDesignGroups = (groups) => {
-    photoDesignGallery.replaceChildren();
-    groups.forEach((group) => {
-        const section = document.createElement('div');
-        section.className = 'photo-design-group';
-
-        const heading = document.createElement('h4');
-        heading.textContent = group.name;
-        section.appendChild(heading);
-
-        const grid = document.createElement('div');
-        grid.className = 'photo-design-grid';
-
-        group.images.forEach((imageData) => {
-            const image = document.createElement('img');
-            image.src = imageData.src;
-            image.alt = `${group.name} example`;
-            image.loading = 'lazy';
-            image.decoding = 'async';
-            grid.appendChild(image);
-        });
-
-        section.appendChild(grid);
-        photoDesignGallery.appendChild(section);
-    });
-};
-
-const photoDesignLocalGroups = photoDesignFallbackGroups.map((group) => ({
-    name: group.name,
-    images: group.files.map((file) => ({
-        name: file.split('/').pop().replace(/\.[^.]+$/, ''),
-        src: `video%20work/photo%20design/${file.split('/').map(encodeURIComponent).join('/')}`
-    }))
-}));
-
-if (photoDesignGallery) renderPhotoDesignGroups(photoDesignLocalGroups);
 
 const createCollaborationMediaGroup = (label, files, type, company) => {
     if (!files.length) return null;
@@ -277,14 +163,7 @@ const createCollaborationMediaGroup = (label, files, type, company) => {
         const card = document.createElement('article');
         card.className = 'collaboration-media-item';
 
-        if (type === 'image') {
-            const image = document.createElement('img');
-            image.src = sourceUrl;
-            image.alt = `${company.name} design`;
-            image.loading = 'lazy';
-            image.decoding = 'async';
-            card.appendChild(image);
-        } else if (youtubeId) {
+        if (youtubeId) {
             card.appendChild(createYouTubeEmbed(youtubeId, `${company.name} video`));
         } else {
             const video = document.createElement('video');
@@ -305,18 +184,13 @@ const createCollaborationMediaGroup = (label, files, type, company) => {
 
 if (collaborationContainer) {
     collaborationCompanies.forEach((company) => {
-        const companySection = document.createElement('section');
-        companySection.className = 'collaboration-company';
+        const companySection = [...collaborationContainer.querySelectorAll('.collaboration-company')]
+            .find((section) => section.dataset.company === company.name);
+        const videoGroups = companySection?.querySelector('.company-video-groups');
+        if (!videoGroups) return;
 
-        const heading = document.createElement('h4');
-        heading.textContent = company.name;
-        companySection.appendChild(heading);
-
-        const images = createCollaborationMediaGroup('Images & Design', company.images, 'image', company);
         const videos = createCollaborationMediaGroup('Videos', company.videos, 'video', company);
-        if (images) companySection.appendChild(images);
-        if (videos) companySection.appendChild(videos);
-        collaborationContainer.appendChild(companySection);
+        if (videos) videoGroups.appendChild(videos);
     });
 }
 
