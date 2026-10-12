@@ -29,7 +29,7 @@ html {
 
 body {
     min-height: 100vh;
-    background-image: linear-gradient(rgba(4, 8, 15, 0.72), rgba(4, 8, 15, 0.72)), url('https://drive.google.com/thumbnail?id=1BLlgMDDlthltwlSGYrlp9r_HwHEGxbd2&sz=w1200');
+    background-image: linear-gradient(rgba(4, 8, 15, 0.72), rgba(4, 8, 15, 0.72)), url('2.JPG');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -499,7 +499,7 @@ button, a {
 }
 
 .video-slide video,
-.video-slide iframe {
+.video-slide .youtube-embed {
     display: block;
     width: 100%;
     aspect-ratio: 9 / 16;
@@ -510,7 +510,7 @@ button, a {
 }
 
 .horizontal-carousel .video-slide video,
-.horizontal-carousel .video-slide iframe {
+.horizontal-carousel .video-slide .youtube-embed {
     aspect-ratio: 16 / 9;
 }
 
@@ -595,14 +595,14 @@ button, a {
     transform: translateY(-2px);
 }
 
-.card-graphic { background-image: url('https://drive.google.com/thumbnail?id=1djifx-FX4y6vXOerTkkriOZiC-OGAGZG&sz=w1200'); }
-.card-content { background-image: url('https://drive.google.com/thumbnail?id=1ETbQm8XYuI_Wto40_D_aZ6Ki3iYkycMC&sz=w1200'); }
-.card-video { background-image: url('https://drive.google.com/thumbnail?id=1vNtc3dxEMfJXpQy2VvnLulVkT3NUIAdJ&sz=w1200'); }
-.card-computer { background-image: url('https://drive.google.com/thumbnail?id=1wJ_Xpk0L6yawq_FtAutKhu7KM5UHHRJU&sz=w1200'); }
-.card-front { background-image: url('https://drive.google.com/thumbnail?id=13uTWxS5tZQVx6FiVTn3cGUYcSWCIuOdl&sz=w1200'); }
-.card-light { background-image: url('https://drive.google.com/thumbnail?id=1qbCvt7Q6pIqFvMgyUyZYaN6K6i__UmVj&sz=w1200'); }
-.card-camera { background-image: url('https://drive.google.com/thumbnail?id=1WtzsIOazabQ6uqRgLSR2srNjNF-578va&sz=w1200'); }
-.card-network { background-image: url('https://drive.google.com/thumbnail?id=1gFe7tUrkvibhxbIcMZ9HaMvPeb2Kf4fu&sz=w1200'); }
+.card-graphic { background-image: url('grapic.jpeg'); }
+.card-content { background-image: url('content.jpg'); }
+.card-video { background-image: url('video.png'); }
+.card-computer { background-image: url('computer.jpg'); }
+.card-front { background-image: url('front.jpg'); }
+.card-light { background-image: url('3.jpg'); }
+.card-camera { background-image: url('4.jpg'); }
+.card-network { background-image: url('5.jpeg'); }
 
 .collaboration-section {
     margin-top: 48px;
@@ -669,7 +669,7 @@ button, a {
 
 .collaboration-media-item img,
 .collaboration-media-item video,
-.collaboration-media-item iframe {
+.collaboration-media-item .youtube-embed {
     display: block;
     width: 100%;
     aspect-ratio: 4 / 3;

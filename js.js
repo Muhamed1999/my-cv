@@ -1,4 +1,4 @@
-const driveMediaUrl = (path, type = 'video') => {
+const youtubeVideoId = (path) => {
     if (!path) return '';
 
     let normalizedPath;
@@ -8,48 +8,30 @@ const driveMediaUrl = (path, type = 'video') => {
         return '';
     }
 
-    const media = window.driveMediaFiles.find((item) => item.path === normalizedPath);
-    if (!media) return '';
-
-    return type === 'image'
-        ? `https://drive.google.com/thumbnail?id=${media.id}&sz=w1200`
-        : `https://drive.google.com/uc?export=download&id=${media.id}`;
+    return window.youtubeMediaIds[normalizedPath] || '';
 };
 
-const useDrivePreviewOnError = (video, sourceUrl) => {
-    video.addEventListener('error', () => {
-        const fileId = new URL(sourceUrl).searchParams.get('id');
-        if (!fileId || !video.isConnected) return;
-
-        const frame = document.createElement('iframe');
-        frame.src = `https://drive.google.com/file/d/${fileId}/preview`;
-        frame.title = video.getAttribute('aria-label') || 'Google Drive video';
-        frame.allow = 'autoplay';
-        frame.allowFullscreen = true;
-        frame.loading = 'lazy';
-        video.replaceWith(frame);
-    }, { once: true });
+const createYouTubeEmbed = (videoId, title) => {
+    const frame = document.createElement('iframe');
+    frame.className = 'youtube-embed';
+    frame.src = `https://www.youtube-nocookie.com/embed/${videoId}?playsinline=1&rel=0`;
+    frame.title = title || 'YouTube video';
+    frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    frame.allowFullscreen = true;
+    frame.loading = 'lazy';
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    return frame;
 };
-
-document.querySelectorAll('img[src]').forEach((image) => {
-    const driveUrl = driveMediaUrl(image.getAttribute('src'), 'image');
-    if (driveUrl) image.src = driveUrl;
-});
 
 document.querySelectorAll('video[src]').forEach((video) => {
-    const driveUrl = driveMediaUrl(video.getAttribute('src'));
-    const posterPath = video.getAttribute('data-drive-poster') || video.getAttribute('poster');
-    const posterUrl = driveMediaUrl(posterPath, 'image');
-
-    if (driveUrl) {
-        useDrivePreviewOnError(video, driveUrl);
-        video.src = driveUrl;
+    const youtubeId = youtubeVideoId(video.getAttribute('src'));
+    if (youtubeId) {
+        video.replaceWith(createYouTubeEmbed(youtubeId, video.getAttribute('aria-label')));
+        return;
     }
-    else video.removeAttribute('src');
 
-    if (posterUrl) video.poster = posterUrl;
-    else video.removeAttribute('poster');
-
+    video.removeAttribute('poster');
+    video.removeAttribute('data-drive-poster');
     video.preload = 'none';
 });
 
@@ -171,7 +153,7 @@ const collaborationCompanies = [
 
 const collaborationContainer = document.getElementById('collaborationCompanies');
 const collaborationMediaRoot = 'video work/شركات تم التعاون معها';
-const mediaUrl = (path, type) => driveMediaUrl(`${collaborationMediaRoot}/${path}`, type);
+const mediaUrl = (path) => `${collaborationMediaRoot}/${path.split('/').map(encodeURIComponent).join('/')}`;
 
 const photoDesignFallbackGroups = [
     {
@@ -248,11 +230,8 @@ const renderPhotoDesignGroups = (groups) => {
         grid.className = 'photo-design-grid';
 
         group.images.forEach((imageData) => {
-            const imageUrl = driveMediaUrl(imageData.src, 'image');
-            if (!imageUrl) return;
-
             const image = document.createElement('img');
-            image.src = imageUrl;
+            image.src = imageData.src;
             image.alt = `${group.name} example`;
             image.loading = 'lazy';
             image.decoding = 'async';
@@ -289,8 +268,11 @@ const createCollaborationMediaGroup = (label, files, type, company) => {
     grid.setAttribute('aria-label', `${label} - ${company.name}`);
 
     files.forEach((file) => {
-        const sourceUrl = mediaUrl(`${company.folder}/${file}`, type === 'image' ? 'image' : 'video');
-        if (!sourceUrl) return;
+        const companyPath = `${company.folder}/${file}`;
+        const youtubeId = type === 'video'
+            ? youtubeVideoId(`${collaborationMediaRoot}/${companyPath}`)
+            : '';
+        const sourceUrl = mediaUrl(companyPath);
 
         const card = document.createElement('article');
         card.className = 'collaboration-media-item';
@@ -302,17 +284,14 @@ const createCollaborationMediaGroup = (label, files, type, company) => {
             image.loading = 'lazy';
             image.decoding = 'async';
             card.appendChild(image);
+        } else if (youtubeId) {
+            card.appendChild(createYouTubeEmbed(youtubeId, `${company.name} video`));
         } else {
             const video = document.createElement('video');
             video.controls = true;
             video.playsInline = true;
-            const isAvi = /\.avi$/i.test(file);
             video.preload = 'none';
-            if (isAvi) {
-                video.poster = mediaUrl(`${company.folder}/Aqua-Solo/gesign/fixed- logo copy.png`, 'image');
-            }
             video.setAttribute('aria-label', `${company.name} video`);
-            useDrivePreviewOnError(video, sourceUrl);
             video.src = sourceUrl;
             card.appendChild(video);
         }
@@ -345,72 +324,6 @@ document.querySelectorAll('video').forEach((video) => {
     video.setAttribute('controlslist', 'nodownload noremoteplayback');
     video.setAttribute('disablepictureinpicture', '');
 });
-const prepareVideoPreview = (video) => {
-    if (video.currentSrc.startsWith('https://drive.google.com/')) return;
-    if (video.dataset.previewRequested || video.hasAttribute('poster')) return;
-    video.dataset.previewRequested = 'true';
-
-    const capturePreview = () => {
-        if (!Number.isFinite(video.duration) || video.duration <= 0) return;
-
-        video.dataset.previewSeeking = 'true';
-        const handleSeeked = () => {
-            video.removeEventListener('seeked', handleSeeked);
-            video.dataset.previewSeeking = 'false';
-            if (video.dataset.previewCanceled === 'true' || !video.paused || !video.videoWidth) return;
-
-            const canvas = document.createElement('canvas');
-            canvas.width = Math.min(video.videoWidth, 480);
-            canvas.height = Math.round(canvas.width * video.videoHeight / video.videoWidth);
-
-            try {
-                const context = canvas.getContext('2d');
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                video.poster = canvas.toDataURL('image/jpeg', 0.8);
-                video.dataset.previewCaptured = 'true';
-            } catch {
-                video.currentTime = 0;
-            }
-        };
-
-        video.addEventListener('seeked', handleSeeked);
-        video.currentTime = video.duration / 2;
-    };
-
-    video.addEventListener('play', () => {
-        if (video.dataset.previewSeeking === 'true') {
-            video.dataset.previewCanceled = 'true';
-            video.dataset.previewSeeking = 'false';
-            video.currentTime = 0;
-        } else if (video.dataset.previewCaptured === 'true' && !video.dataset.previewPlayed) {
-            video.dataset.previewPlayed = 'true';
-            video.currentTime = 0;
-        }
-    });
-
-    if (video.readyState >= 1) {
-        capturePreview();
-    } else {
-        video.addEventListener('loadedmetadata', capturePreview, { once: true });
-    }
-};
-
-const videos = document.querySelectorAll('.video-carousel video, .collaboration-media-grid video');
-if ('IntersectionObserver' in window) {
-    const previewObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.preload = 'metadata';
-            entry.target.load();
-            prepareVideoPreview(entry.target);
-            previewObserver.unobserve(entry.target);
-        });
-    }, { rootMargin: '250px 300px' });
-
-    videos.forEach((video) => previewObserver.observe(video));
-} else {
-    videos.forEach(prepareVideoPreview);
-}
 
 const chatToggle = document.getElementById('chatToggle');
 const chatWidget = document.getElementById('chatWidget');
